@@ -42,4 +42,9 @@ public class AuthorizationController {
         }
         return "registration";
     }
+
+    @GetMapping("/login")
+    public String logIn(Model model){
+        return "login";
+    }
 }
