@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveNewUser(User user){
+    public User saveNewUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         Role userRole = roleRepository.findByRole("USER");
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getLoggedInUser(){
+    public User getLoggedInUser() {
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return findByUsername(loggedInUsername);

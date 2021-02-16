@@ -15,12 +15,12 @@ public class AuthorizationController {
 
     private UserService userService;
 
-    public AuthorizationController(UserService userService){
+    public AuthorizationController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/signup")
-    public String registration(Model model){
+    public String registration(Model model) {
         User user = new User();
         model.addAttribute("user", user);
 
@@ -30,12 +30,12 @@ public class AuthorizationController {
     @PostMapping("/signup")
     public String createNewUser(@Valid User user,
                                 BindingResult bindingResult,
-                                Model model){
+                                Model model) {
         User userExists = userService.findByUsername(user.getUsername());
-        if(userExists!=null){
+        if (userExists != null) {
             bindingResult.rejectValue("username", "error.user", "Username is already taken");
         }
-        if (!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors()) {
             userService.saveNewUser(user);
             model.addAttribute("success", "Sign up successful!");
             model.addAttribute("user", new User());
