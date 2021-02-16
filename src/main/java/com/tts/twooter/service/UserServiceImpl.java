@@ -1,12 +1,16 @@
 package com.tts.twooter.service;
 
+import com.tts.twooter.model.Role;
 import com.tts.twooter.model.User;
 import com.tts.twooter.repository.RoleRepository;
 import com.tts.twooter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -37,6 +41,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        userRepository.save(user);
+    }
 
+    @Override
+    public User saveNewUser(User user){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("USER");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User getLoggedInUser(){
+        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return findByUsername(loggedInUsername);
     }
 }

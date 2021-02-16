@@ -37,4 +37,5 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     // TODO: Create Role class
     private Set<Role> roles;
+
 }
