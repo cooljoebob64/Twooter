@@ -39,6 +39,9 @@
 
     <div th:if="${success}">
         <div th:text="${success}"></div>
+        <form th:action="@{/login}" method="get">
+            <button class="btn btn-md btn-success btn-block" type="submit">Log In</button>
+        </form>
     </div>
 </div>
 </body>
