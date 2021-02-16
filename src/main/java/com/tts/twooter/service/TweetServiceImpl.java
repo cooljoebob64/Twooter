@@ -3,9 +3,11 @@ package com.tts.twooter.service;
 import com.tts.twooter.model.Tweet;
 import com.tts.twooter.model.User;
 import com.tts.twooter.repository.TweetRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TweetServiceImpl implements TweetService{
 
     private TweetRepository tweetRepository;
@@ -31,6 +33,6 @@ public class TweetServiceImpl implements TweetService{
 
     @Override
     public void save(Tweet tweet) {
-
+        tweetRepository.save(tweet);
     }
 }
