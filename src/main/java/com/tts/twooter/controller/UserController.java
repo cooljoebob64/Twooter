@@ -1,6 +1,7 @@
 package com.tts.twooter.controller;
 
 import com.tts.twooter.model.Tweet;
+import com.tts.twooter.model.TweetDisplay;
 import com.tts.twooter.model.User;
 import com.tts.twooter.service.TweetService;
 import com.tts.twooter.service.UserService;
@@ -27,7 +28,7 @@ public class UserController {
         User loggedInUser = userService.getLoggedInUser();
         User user = userService.findByUsername(username);
 
-        List<Tweet> tweets = tweetService.findAllByUser(user);
+        List<TweetDisplay> tweets = tweetService.findAllByUser(user);
         List<User> following = loggedInUser.getFollowing();
         boolean isFollowing = false;
 
@@ -62,7 +63,7 @@ public class UserController {
     private void SetTweetCounts(List<User> users, Model model) {
         HashMap<String,Integer> tweetCounts = new HashMap<>();
         for (User user : users) {
-            List<Tweet> tweets = tweetService.findAllByUser(user);
+            List<TweetDisplay> tweets = tweetService.findAllByUser(user);
             tweetCounts.put(user.getUsername(), tweets.size());
         }
         model.addAttribute("tweetCounts", tweetCounts);
